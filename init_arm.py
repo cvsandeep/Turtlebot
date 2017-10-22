@@ -38,7 +38,7 @@ def position_creater(joint0,joint1,joint2,joint3,joint4):
 def reset_arm():
 	set.position_creater(1.66, -1.61, -1.58, -0.48, 0.0)
 
-def display()
+def display():
 	print "============ Reference frame: %s" % arm.get_planning_frame()
 	print "============ Reference frame: %s" % arm.get_planning_frame()
 	print "============ Reference frame: %s" % arm.get_end_effector_link()
