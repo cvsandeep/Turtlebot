@@ -1,7 +1,7 @@
 import os, sys
-#import tb2i as TB
+import tb2i as TB
 
-#arm = TB.tb_arm
+arm = TB.tb_arm
 
 def Task1():
     print "Task #1:Adding a screw to Adam"
