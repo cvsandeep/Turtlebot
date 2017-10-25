@@ -87,53 +87,47 @@ def set_gripper(state):
               gripper.set_joint_value_target(gripper_tighten)
               gripper.go()
                           	
-def rotation_motion(degree):
-	#Declare variable to store degree that's converted  to servo value
-	conversion = 0
+def rotation_percentage(percentage):
 
 	#Initialize the arm
+	#Clear pose target
 	arm.clear_pose_targets()
-	group_variable_values = arm.get_current_joint_values
+	#Get the current set of joint values
+	group_variable_values = arm.get_current_joint_values()
 	
-	#Case for degrees between 0 and 89
-	if 0 < degree < 89:
-		#Display information about movement
-		rospy.loginfo("Rotation is between 0 and 89 degrees")
-		
-		#Convert degrees to servo values
-		conversion = (-1.55 - (degree * 0.01177))
+	#Declare variables
+	output = 0
+	
+	#Initialize the arm to the starting position
+	#
+	#
+	#------------------------------------------
 
-		#Initialize the servos
-		group_variable_values[0] = conversion
-		group_variable_values[1] = -1.60
-		
-	#Case for a degree of 90
-	elif degree == 90:
-		#Display information about movement
-		rospy.loginfo("Rotation is 90 degrees")
+	#If the percentage is between 0 and 49	
+	if 0 <= percentage and percentage <= 49:
+		#Convert to servo value
+  		output = -1.55 - (percentage * 0.021)
+  		print ("The output is:", output)
+		group_variable_values[0] = output
 
-		#Initialize the servos
-		group_variable_values[0] = conversion
-		group_variable_values[1] = -1.60
-		
-	#Case for degrees between 91 and 180
-	elif 91 < degree < 180:
-		#Display information about movement
-		rospy.loginfo("Rotation is between 91 and 180 degrees")
-		
-		#Convert degrees to servo values
-		conversion = (2.61 - (degree * 0.01191))
+	#If the percentage is equal to 50
+	elif percentage == 50:
+		#Convert to servo value
+  		print ("The output is:", output)
+		group_variable_values[0] = output
 
-		#Initialize the servos
-		group_variable_values[0] = conversion
-		group_variable_values[1] = -1.60
+	#If the percentage is between 51 and 100
+	elif 51 <= percentage and percentage <= 100:
+		#Convert to servo value
+  		output = 2.61 - ((percentage - 51) * 0.021)
+  		print ("The output is:", output)
+		group_variable_values[0] = output
 
-	#Case for degrees that are out of bounds
+	#Otherwise the percentage is out of bounds
 	else:
-		#Display information about movement
-		rospy.loginfo("Error: Rotation is out of bounds")
-
-	#Move arm to the desired position(degree)
+    		print ("This is an invalid state")
+	
+	#Rotate the arm to the desired location
 	arm.set_joint_value_target(group_variable_values)
 	plan = arm.plan()
-	arm.go()
+	arm.go(wait=True)
