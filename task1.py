@@ -53,11 +53,7 @@ def Task15():
 def main(argv):
     print "Starting the Scene"
     for arg in sys.argv[1:]:
-        options = {"task1": Task1,
-                   "task2": Task2
-                   }
-    num = "task1"
-    options[num]()
+        globals()[arg]()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
