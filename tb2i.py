@@ -118,9 +118,8 @@ class tb_arm:
 
     def reset_arm(self):
         print "Moving the arm to reset position"
-        self.position_creater(-1.55, -1.60, -1.58, 1.50, 0.0)
-
-    # position_creater(1.70, -1.61, -1.58, -0.48, 0.0)
+        # self.position_creater(-1.55, -1.60, -1.58, 1.50, 0.0)
+	self. position_creater(1.70, -1.61, -1.58, -0.48, 0.0)
 
     def display(self):
         print "============ Reference frame: %s" % tb_arm.arm.get_planning_frame()
