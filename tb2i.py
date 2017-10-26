@@ -120,6 +120,13 @@ class tb_arm:
         print "Moving the arm to reset position"
         # self.position_creater(-1.55, -1.60, -1.58, 1.50, 0.0)
 	self. position_creater(1.70, -1.61, -1.58, -0.48, 0.0)
+	
+    def intial_pos(self):	
+	# Start the arm in the "arm_up" pose stored in the SRDF file
+        print "Set Arm: right_up"
+        tb_arm.arm.set_named_target('right_up')
+        if tb_arm.arm.go() != True:
+            print "  Go failed for right up"
 
     def display(self):
         print "============ Reference frame: %s" % tb_arm.arm.get_planning_frame()
