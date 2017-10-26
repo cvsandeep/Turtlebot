@@ -193,7 +193,7 @@ class tb_arm:
         # If the percentage is between 51 and 100
         elif 51 <= percentage and percentage <= 100:
             # Convert to servo value
-            output = 2.61 - ((percentage - 51) * 0.022)
+            output = (-(percentage - 51) * 0.021)
             print ("The output is:", output)
             group_variable_values[0] = output
 
