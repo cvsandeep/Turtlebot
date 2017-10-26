@@ -28,6 +28,23 @@ arm.lift_percentage(50)
 time.sleep(5)
 arm.lift_percentage(100)
 
+time.sleep(5)
+arm.lift_percentage(50)
+
+time.sleep(5)
+arm.lower_arm_bend(100)
+time.sleep(5)
+arm.lower_arm_bend(0)
+time.sleep(5)
+arm.lower_arm_bend(50)
+time.sleep(5)
+arm.upper_arm_bend(100)
+time.sleep(5)
+arm.upper_arm_bend(0)
+time.sleep(5)
+arm.lower_arm_bend(50)
+time.sleep(5)
+
 #Test the reset mechanisim
 arm.reset_arm()
 time.sleep(5)

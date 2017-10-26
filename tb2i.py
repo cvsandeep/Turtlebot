@@ -209,7 +209,7 @@ class tb_arm:
 	#If percentage is between 50 and 100
   	elif 50 <= percentage and percentage <= 100:
 		
-		# Convert to servo value
+		# Convert to servo value:w
     		output = ((percentage - 50) * 0.011)
     		print ("The output is:", output)
 		group_variable_values[2] = output
@@ -223,3 +223,59 @@ class tb_arm:
         tb_arm.arm.set_joint_value_target(group_variable_values)
         plan = tb_arm.arm.plan()
         tb_arm.arm.go(wait=True)
+
+    def lower_arm_bend(self,percentage):                                                 
+    	# Initialize the arm                                                             
+    	# Clear pose target                                                              
+    	tb_arm.arm.clear_pose_targets()                                                  
+    	# Get the current set of joint values                                            
+    	group_variable_values = tb_arm.arm.get_current_joint_values()                    
+                                                                                     
+    	# Declare variables                                                              
+    	output = 0                                                                       
+                                                                                     
+    	# If percentage is between 0 and 100                                              
+    	if 0 <= percentage and percentage <= 100:                                         
+                                                                                     
+        	# Convert to servo value                                                     
+        	output = (percentage - 50)/50                                       
+        	print ("The output is:", output)                                             
+        	group_variable_values[1] = output                                            
+                                                                                     
+    	#Otherwise the percentage is invalid                                             
+    	else:                                                                            
+        	# Display percentage error                                                   
+            	print ("This is an invalid state")                                       
+                                                                                     
+    	# Rotate the arm to the desired location                                         
+    	tb_arm.arm.set_joint_value_target(group_variable_values)                         
+    	plan = tb_arm.arm.plan()                                                         
+    	tb_arm.arm.go(wait=True)                                                         
+                                                                                     
+    def upper_arm_bend(self,percentage):                                                 
+    	# Initialize the arm                                                             
+    	# Clear pose target                                                              
+    	tb_arm.arm.clear_pose_targets()                                                  
+    	# Get the current set of joint values                                            
+    	group_variable_values = tb_arm.arm.get_current_joint_values()                    
+                                                                                     
+    	# Declare variables                                                              
+    	output = 0                                                                       
+                                                                                     
+    	# If percentage is between 0 and 100                                              
+    	if 0 <= percentage and percentage <= 100:                                         
+                                                                                     
+        	# Convert to servo value                                                     
+        	output = (percentage - 50)/50                                       
+        	print ("The output is:", output)                                             
+        	group_variable_values[3] = output                                            
+                                                                                     
+    	#Otherwise the percentage is invalid                                             
+    	else:                                                                            
+        	# Display percentage error                                                   
+            	print ("This is an invalid state")                                       
+                                                                                     
+    	# Rotate the arm to the desired location                                         
+    	tb_arm.arm.set_joint_value_target(group_variable_values)                         
+    	plan = tb_arm.arm.plan()                                                         
+    	tb_arm.arm.go(wait=True)                                                         
