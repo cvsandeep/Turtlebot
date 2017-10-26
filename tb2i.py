@@ -186,7 +186,7 @@ class tb_arm:
         # If the percentage is between 51 and 100
         elif 51 <= percentage and percentage <= 100:
             # Convert to servo value
-            output = 2.61 - ((percentage - 51) * 0.021)
+            output = 2.61 - ((percentage - 51) * 0.022)
             print ("The output is:", output)
             group_variable_values[0] = output
 
@@ -199,7 +199,7 @@ class tb_arm:
         plan = tb_arm.arm.plan()
         tb_arm.arm.go(wait=True)
 
-def lift_percentage(percentage):
+    def lift_percentage(self,percentage):
 	# Initialize the arm
         # Clear pose target
         tb_arm.arm.clear_pose_targets()
@@ -207,23 +207,23 @@ def lift_percentage(percentage):
         group_variable_values = tb_arm.arm.get_current_joint_values() 
 
 	# Declare variables 
-	ouput = 0
+	output = 0
 
 	# If percentage is between 0 and 49
 	if 0 <= percentage and percentage <= 49:
 		
 		# Convert to servo value
-    		ouput = -1.13 + (percentage * 0.022)
-   	 	print ("The output is:", ouput)
-		group_variable_values[1] = output
+    		output = -1.13 + (percentage * 0.022)
+   	 	print ("The output is:", output)
+		group_variable_values[2] = output
 
 	#If percentage is between 50 and 100
   	elif 50 <= percentage and percentage <= 100:
 		
 		# Convert to servo value
-    		ouput = ((percentage - 50) * 0.011)
-    		print ("The output is:", ouput)
-		group_variable_values[1] = output
+    		output = ((percentage - 50) * 0.011)
+    		print ("The output is:", output)
+		group_variable_values[2] = output
 
 	#Otherwise the percentage is invalid
   	else:
