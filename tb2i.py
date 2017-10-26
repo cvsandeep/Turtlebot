@@ -172,28 +172,10 @@ class tb_arm:
         # Declare variables
         output = 0
 
-        # Initialize the arm to the starting position
-        #
-        #
-        # ------------------------------------------
-
         # If the percentage is between 0 and 49
-        if 0 <= percentage and percentage <= 49:
+        if 0 <= percentage and percentage <= 100:
             # Convert to servo value
-            output = -1.55 - (percentage * 0.021)
-            print ("The output is:", output)
-            group_variable_values[0] = output
-
-        # If the percentage is equal to 50
-        elif percentage == 50:
-            # Convert to servo value
-            print ("The output is:", output)
-            group_variable_values[0] = output
-
-        # If the percentage is between 51 and 100
-        elif 51 <= percentage and percentage <= 100:
-            # Convert to servo value
-            output = (-(percentage - 51) * 0.021)
+            output = 1.5 * (percentage - 50)/50
             print ("The output is:", output)
             group_variable_values[0] = output
 

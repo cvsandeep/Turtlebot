@@ -1,7 +1,20 @@
-import os, sys
+import os, sys, time
 import tb2i as TB
 
-arm = TB.tb_arm
+arm = TB.tb_arm()
+
+def screw_motion():
+    arm.intial_pos()
+    time.sleep(1)
+    arm.lift_percentage(10)
+    time.sleep(1)
+    for num in range(1,5):
+    	arm.rotation_percentage(40)
+	time.sleep(1)
+    	arm.rotation_percentage(50)
+	time.sleep(1)
+    	arm.rotation_percentage(60)
+	time.sleep(1)
 
 def Task1():
     print "Task #1:Adding a screw to Adam"
@@ -9,7 +22,7 @@ def Task1():
 
 def Task2():
     print "Task #2:Adding a screw to Adam"
-    #screw_motion
+    screw_motion()
 
 def Task3():
     print "Task #3:Mobile Arm punching the key ENTER"
