@@ -29,6 +29,9 @@ display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path
 
 
 class tb_arm:
+    arm = 0
+    robot = 0
+    griper = 0
     def __init__(self):
         print "Intializing moveit commander"
         # Initialize the move_group API
@@ -38,7 +41,7 @@ class tb_arm:
         self.gripper_opened = [rospy.get_param(GRIPPER_PARAM + "/max_opening")]
         self.gripper_closed = [rospy.get_param(GRIPPER_PARAM + "/min_opening") + 0.01]
         self.gripper_neutral = [
-            rospy.get_param(GRIPPER_PARAM + "/neutral", (gripper_opened[0] + gripper_closed[0]) / 2.0)]
+            rospy.get_param(GRIPPER_PARAM + "/neutral", (self.gripper_opened[0] + self.gripper_closed[0]) / 2.0)]
         self.gripper_tighten = rospy.get_param(GRIPPER_PARAM + "/tighten", 0.0)
 
         # Use the planning scene object to add or remove objects
@@ -54,52 +57,52 @@ class tb_arm:
         self.colors = dict()
 
         # Initialize the move group for the right arm
-        arm = MoveGroupCommander(GROUP_NAME_ARM)
-        robot = RobotCommander()
+        tb_arm.arm = MoveGroupCommander(GROUP_NAME_ARM)
+        tb_arm.robot = RobotCommander()
 
         # Initialize the move group for the right gripper
-        gripper = MoveGroupCommander(GROUP_NAME_GRIPPER)
+        tb_arm.gripper = MoveGroupCommander(GROUP_NAME_GRIPPER)
 
         # Get the name of the end-effector link
-        end_effector_link = arm.get_end_effector_link()
+        end_effector_link = tb_arm.arm.get_end_effector_link()
 
         # Allow some leeway in position (meters) and orientation (radians)
-        arm.set_goal_position_tolerance(0.04)
-        arm.set_goal_orientation_tolerance(0.01)
+        tb_arm.arm.set_goal_position_tolerance(0.04)
+        tb_arm.arm.set_goal_orientation_tolerance(0.01)
 
         # Allow replanning to increase the odds of a solution
-        arm.allow_replanning(True)
+        tb_arm.arm.allow_replanning(True)
 
         # Set the right arm reference frame
-        arm.set_pose_reference_frame(REFERENCE_FRAME)
+        tb_arm.arm.set_pose_reference_frame(REFERENCE_FRAME)
 
         # Allow 5 seconds per planning attempt
-        arm.set_planning_time(5)
+        tb_arm.arm.set_planning_time(5)
 
         # Remove any attached objects from a previous session
-        self.scene.remove_attached_object(GRIPPER_FRAME, target_id)
+        #self.scene.remove_attached_object(GRIPPER_FRAME, target_id)
 
         # Give the scene a chance to catch up
         rospy.sleep(1)
 
         # Start the arm in the "arm_up" pose stored in the SRDF file
         print "Set Arm: right_up"
-        arm.set_named_target('right_up')
-        if arm.go() != True:
+        tb_arm.arm.set_named_target('right_up')
+        if tb_arm.arm.go() != True:
             print "  Go failed for right up"
 
         # Move the gripper to the open position
         print "Set Gripper: Open " + str(self.gripper_opened)
-        gripper.set_joint_value_target(self.gripper_opened)
-        if gripper.go() != True:
+        tb_arm.gripper.set_joint_value_target(self.gripper_opened)
+        if tb_arm.gripper.go() != True:
             print "  Go failed for gripper open"
 
-    def position_creater(joint0, joint1, joint2, joint3, joint4):
+    def position_creater(self, joint0, joint1, joint2, joint3, joint4):
         # Clear pose target
-        arm.clear_pose_targets()
+        tb_arm.arm.clear_pose_targets()
 
         # Get the create set of joint values
-        group_variable_values = arm.get_current_joint_values()
+        group_variable_values = tb_arm.arm.get_current_joint_values()
 
         group_variable_values[0] = joint0
         group_variable_values[1] = joint1
@@ -107,52 +110,58 @@ class tb_arm:
         group_variable_values[3] = joint3
         group_variable_values[4] = joint4
         print "Moving to desired location"
-        arm.set_joint_value_target(group_variable_values)
+        tb_arm.arm.set_joint_value_target(group_variable_values)
 
-        plan = arm.plan()
+        plan = tb_arm.arm.plan()
 
-        arm.go(wait=True)
+        tb_arm.arm.go(wait=True)
 
-    def reset_arm():
+    def reset_arm(self):
         print "Moving the arm to reset position"
-        position_creater(-1.55, -1.60, -1.58, 1.50, 0.0)
+        self.position_creater(-1.55, -1.60, -1.58, 1.50, 0.0)
 
     # position_creater(1.70, -1.61, -1.58, -0.48, 0.0)
 
-    def display():
-        print "============ Reference frame: %s" % arm.get_planning_frame()
-        print "============ Reference frame: %s" % arm.get_planning_frame()
-        print "============ Reference frame: %s" % arm.get_end_effector_link()
+    def display(self):
+        print "============ Reference frame: %s" % tb_arm.arm.get_planning_frame()
+        print "============ Reference frame: %s" % tb_arm.arm.get_planning_frame()
+        print "============ Reference frame: %s" % tb_arm.arm.get_end_effector_link()
         print "============ Robot Groups:"
-        print robot.get_group_names()
+        print tb_arm.robot.get_group_names()
         print "============ Printing robot state"
-        print robot.get_current_state()
+        print tb_arm.robot.get_current_state()
         print "============"
 
-    def set_gripper(state):
-        if state == "opened":
-            rospy.loginfo("Set Gripper: Open " + str(gripper_opened))
-            gripper.set_joint_value_target(gripper_opened)
-            gripper.go()
-        elif state == "close":
-            rospy.loginfo("Set Gripper: close " + str(gripper_closed))
-            gripper.set_joint_value_target(gripper_closed)
-            gripper.go()
-        elif state == "neutral":
-            rospy.loginfo("Set Gripper: neutral " + str(gripper_neutral))
-            gripper.set_joint_value_target(gripper_neutral)
-            gripper.go()
-        elif state == "tighten":
-            rospy.loginfo("Set Gripper: tighten " + str(gripper_tighten))
-            gripper.set_joint_value_target(gripper_tighten)
-            gripper.go()
+    def set_gripper(self, state):
+        self.gripper_opened = [rospy.get_param(GRIPPER_PARAM + "/max_opening")]
+        self.gripper_closed = [rospy.get_param(GRIPPER_PARAM + "/min_opening") + 0.01]
+        self.gripper_neutral = [
+            rospy.get_param(GRIPPER_PARAM + "/neutral", (self.gripper_opened[0] + self.gripper_closed[0]) / 2.0)]
+        self.gripper_tighten = rospy.get_param(GRIPPER_PARAM + "/tighten", 0.0)
 
-    def rotation_percentage(percentage):
+        if state == "opened":
+            rospy.loginfo("Set Gripper: Open " + str(self.gripper_opened))
+            tb_arm.gripper.set_joint_value_target(self.gripper_opened)
+            tb_arm.gripper.go()
+        elif state == "close":
+            rospy.loginfo("Set Gripper: close " + str(self.gripper_closed))
+            tb_arm.gripper.set_joint_value_target(self.gripper_closed)
+            tb_arm.gripper.go()
+        elif state == "neutral":
+            rospy.loginfo("Set Gripper: neutral " + str(self.gripper_neutral))
+            tb_arm.gripper.set_joint_value_target(self.gripper_neutral)
+            tb_arm.gripper.go()
+        elif state == "tighten":
+            rospy.loginfo("Set Gripper: tighten " + str(self.gripper_tighten))
+            tb_arm.gripper.set_joint_value_target(self.gripper_tighten)
+            tb_arm.gripper.go()
+
+    def rotation_percentage(self, percentage):
         # Initialize the arm
         # Clear pose target
-        arm.clear_pose_targets()
+        tb_arm.arm.clear_pose_targets()
         # Get the current set of joint values
-        group_variable_values = arm.get_current_joint_values()
+        group_variable_values = tb_arm.arm.get_current_joint_values()
 
         # Declare variables
         output = 0
@@ -187,6 +196,6 @@ class tb_arm:
             print ("This is an invalid state")
 
         # Rotate the arm to the desired location
-        arm.set_joint_value_target(group_variable_values)
-        plan = arm.plan()
-        arm.go(wait=True)
+        tb_arm.arm.set_joint_value_target(group_variable_values)
+        plan = tb_arm.arm.plan()
+        tb_arm.arm.go(wait=True)
