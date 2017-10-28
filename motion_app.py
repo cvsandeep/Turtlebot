@@ -1,9 +1,9 @@
-import os, sys, time
 import tb2i as TB
 
 arm = TB.tb_arm()
 
-def introduction()
+def introduction():
+    print "Introduction"
     arm.intial_pos()
     arm.lift_percentage(75)
     arm.lift_percentage(25)
@@ -53,7 +53,7 @@ def build_animals(rotation):
     arm.set_gripper("close")
     arm.reset_arm()
 
- def guide():
+def guide():
     for num in range(1,3):
          arm.rotation_percentage(num*10)
     arm.reset_arm()
