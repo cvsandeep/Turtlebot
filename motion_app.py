@@ -3,6 +3,26 @@ import tb2i as TB
 
 arm = TB.tb_arm()
 
+def introduction()
+    arm.intial_pos()
+    arm.lift_percentage(75)
+    arm.lift_percentage(25)
+    arm.lift_percentage(50)
+    arm.lift_percentage(75)
+    screw_motion()
+    build_robot()
+
+def build_robot():
+    arm.intial_pos()
+    arm.upper_arm_bend(0)
+    arm.rotation_percentage(60)	
+    arm.set_gripper("opened")
+    arm.set_gripper("close")
+    arm.rotation_percentage(75)
+    arm.set_gripper("opened")
+    arm.set_gripper("close")
+    arm.reset_arm()	
+	
 def board_replace():
     arm.intial_pos()
     #Picking the board 
