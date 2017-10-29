@@ -102,28 +102,36 @@ def screw_motion():
     arm.rotation_percentage(100)
     
     #According to placment TWEAKKKKKKKKKKK
-    arm.lift_percentage(70)
-    arm.lower_arm_bend(90)
-    
+    arm.upper_arm_bend(3)
     arm.set_gripper("close")
-    
+     for num in range(0,13):
+    	arm.lift_percentage(71 - (num*2))
+    	arm.lower_arm_bend(70 - (num*2))
+	
+    arm.lower_arm_bend(65)
+    arm.lift_percentage(65)
+    arm.lower_arm_bend(60)
     arm.lift_percentage(60)
-    arm.lower_arm_bend(80)    
-    arm.upper_arm_bend(10)
+    arm.lower_arm_bend(55)
     arm.lift_percentage(55)
+    arm.lower_arm_bend(50)
+
 
     #screw motion
     arm.intial_pos()
-    arm.lift_percentage(10)
+    arm.lift_percentage(45)
+    arm.upper_arm_bend(0)
     time.sleep(1)
     for num in range(1,5):
-    	arm.rotation_percentage(40)
-    	arm.rotation_percentage(50)
-    	arm.rotation_percentage(60)
+    	arm.rotation_percentage(40+(num*3))
+    for num in range(1,5):
+    	arm.rotation_percentage(55-(num*3))
+    
 	 
-    time.sleep(1)
+    
     # place the screw back
-    arm.intial_pos()
+    arm.lift_percentage(50)
+    arm.lower_arm_bend(45)
     time.sleep(1)
 
     #Copied from above replace values
@@ -133,8 +141,10 @@ def screw_motion():
     arm.rotation_percentage(100)
     
     #According to placment TWEAKKKKKKKKKKK
-    arm.lift_percentage(70)
-    arm.lower_arm_bend(90)
+    arm.upper_arm_bend(3)
+    for num in range(1,8):
+    	arm.lift_percentage(55 + (num*2))
+    	arm.lower_arm_bend(57 + (num*2))
     
     arm.set_gripper("opened")
     arm.reset_arm()
