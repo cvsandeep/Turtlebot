@@ -99,14 +99,19 @@ def screw_motion():
     arm.upper_arm_bend(0)
     
     # this may change according to placement of key board 
-    arm.rotation_percentage(0)
+    arm.rotation_percentage(100)
     
     #According to placment TWEAKKKKKKKKKKK
     arm.lift_percentage(70)
-    arm.lower_arm_bend(10)
+    arm.lower_arm_bend(90)
     
     arm.set_gripper("close")
-        
+    
+    arm.lift_percentage(60)
+    arm.lower_arm_bend(80)    
+    arm.upper_arm_bend(10)
+    arm.lift_percentage(55)
+
     #screw motion
     arm.intial_pos()
     arm.lift_percentage(10)
@@ -116,18 +121,20 @@ def screw_motion():
     	arm.rotation_percentage(50)
     	arm.rotation_percentage(60)
 	 
+    time.sleep(1)
     # place the screw back
     arm.intial_pos()
-    
+    time.sleep(1)
+
     #Copied from above replace values
     arm.upper_arm_bend(0)
     
     # this may change according to placement of key board 
-    arm.rotation_percentage(0)
+    arm.rotation_percentage(100)
     
     #According to placment TWEAKKKKKKKKKKK
     arm.lift_percentage(70)
-    arm.lower_arm_bend(10)
+    arm.lower_arm_bend(90)
     
     arm.set_gripper("opened")
     arm.reset_arm()
