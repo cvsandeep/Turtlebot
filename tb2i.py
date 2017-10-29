@@ -238,7 +238,7 @@ class tb_arm:
     	if 0 <= percentage and percentage <= 100:                                         
                                                                                      
         	# Convert to servo value                                                     
-        	output = (percentage - 50)/50                                       
+        	output = ((percentage - 50) * 1.0 )/50                                       
         	print ("The output is:", output)                                             
         	group_variable_values[1] = output                                            
                                                                                      
@@ -266,7 +266,7 @@ class tb_arm:
     	if 0 <= percentage and percentage <= 100:                                         
                                                                                      
         	# Convert to servo value                                                     
-        	output = (percentage - 50)/50                                       
+        	output = ((percentage - 50) * 1.0)/50                                       
         	print ("The output is:", output)                                             
         	group_variable_values[3] = output                                            
                                                                                      
