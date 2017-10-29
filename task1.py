@@ -81,12 +81,13 @@ def press_enter():
     arm.upper_arm_bend(0)
          
     # this may change according to placement of key board 
-    arm.rotation_percentage(10)  
+    arm.rotation_percentage(90)  
         
     #According to placment TWEAKKKKKKKKKKK
     arm.lift_percentage(70) 
-    arm.lower_arm_bend(10)
+    arm.lower_arm_bend(70)
     time.sleep(4)
+    arm.intial_pos()
     arm.reset_arm
 
 def screw_motion():
