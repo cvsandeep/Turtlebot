@@ -65,10 +65,12 @@ def guide():
     arm.intial_pos()
     arm.set_gripper("opened")
     arm.lower_arm_bend(20)
-    arm.set_gripper("opened")
-    for num in range(1,4):
-         arm.rotation_percentage(num*10)
+    arm.upper_arm_bend(0) 
+    arm.rotation_percentage(0)
     arm.set_gripper("close")
+    for num in range(0,20):
+         arm.rotation_percentage(num*3)
+    arm.set_gripper("opened")
     arm.reset_arm()
 
 def press_enter():
@@ -132,33 +134,29 @@ def screw_motion():
     
 def wave():
     arm.intial_pos()
-    arm.lower_arm_bend(0)
-    arm.upper_arm_bend(100)
+    arm.lower_arm_bend(20)
+    arm.upper_arm_bend(90)
     for num in range(1,5):
         arm.rotation_percentage(40)
-        time.sleep(1)
-        arm.rotation_percentage(50)
-        time.sleep(1)
         arm.rotation_percentage(60)
-        time.sleep(1)
     arm.reset_arm()  
 
 def bless():
     arm.intial_pos()
     for num in range(1,3):
-        arm.lower_arm_bend(100)
+        arm.lower_arm_bend(20)
 	arm.upper_arm_bend(80)
-	arm.upper_arm_bend(50)
+	arm.upper_arm_bend(30)
     arm.rotation_percentage(100)
     for num in range(1,3):
-	arm.lower_arm_bend(100)
+	arm.lower_arm_bend(20)
         arm.upper_arm_bend(80)
-        arm.upper_arm_bend(50)
+        arm.upper_arm_bend(30)
     arm.rotation_percentage(0)
     for num in range(1,3):
-        arm.lower_arm_bend(100)
+        arm.lower_arm_bend(20)
         arm.upper_arm_bend(80)
-        arm.upper_arm_bend(50)
+        arm.upper_arm_bend(30)
     arm.reset_arm()
 
 def Task1():
