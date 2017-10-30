@@ -98,7 +98,7 @@ class tb_arm:
             print "  Go failed for gripper open"
 
     def position_creater(self, joint0, joint1, joint2, joint3, joint4):
-	print "position_creater: "+ "joint0-" + joint0 + " joint1-" + joint1 + "joint2-" + joint2 + " joint3-" + joint3 + " joint4-" + joint4
+	print "position_creater: "+ "joint0-" + str(joint0) + " joint1-" + str(joint1) + "joint2-" + str(joint2) + " joint3-" + str(joint3) + " joint4-" + str(joint4)
         # Clear pose target
         tb_arm.arm.clear_pose_targets()
 
@@ -177,7 +177,7 @@ class tb_arm:
         if 0 <= percentage and percentage <= 100:
             # Convert to servo value
             output = 1.5 * (percentage - 50)/50
-            print "rotation_percentage: percentage is" + percentage "The output is:" + output
+            print "rotation_percentage: percentage is" + str(percentage) +"The output is:" + str(output)
             group_variable_values[0] = output
 
         # Otherwise the percentage is out of bounds
@@ -204,7 +204,7 @@ class tb_arm:
 		
 		# Convert to servo value
     		output = -1.13 + (percentage * 0.022)
-   	 	print "lift_percentage: percentage is" + percentage "The output is:" + output
+   	 	print "lift_percentage: percentage is" + str(percentage) + "The output is:" + str(output)
 		group_variable_values[2] = output
 
 	#If percentage is between 50 and 100
@@ -212,7 +212,8 @@ class tb_arm:
 		
 		# Convert to servo value:w
     		output = ((percentage - 50) * 0.011)
-    		print ("The output is:", output)
+   	 	print "lift_percentage: percentage is" + str(percentage) + "The output is:" + str(output)
+		group_variable_values[2] = output
 		group_variable_values[2] = output
 
 	#Otherwise the percentage is invalid
@@ -240,7 +241,7 @@ class tb_arm:
                                                                                      
         	# Convert to servo value                                                     
         	output = ((percentage - 50) * 1.0 )/50                                       
-        	print "lower_arm_bend: percentage is" + percentage "The output is:" + output                                             
+        	print "lower_arm_bend: percentage is" + str(percentage) + "The output is:" + str(output)                                            
         	group_variable_values[1] = output                                            
                                                                                      
     	#Otherwise the percentage is invalid                                             
@@ -268,7 +269,7 @@ class tb_arm:
                                                                                      
         	# Convert to servo value                                                     
         	output = ((percentage - 50) * 1.0)/50                                       
-        	print "upper_arm_bend: percentage is" + percentage "The output is:" + output                                             
+        	print "upper_arm_bend: percentage is" + str(percentage) + "The output is:" + str(output)                                             
         	group_variable_values[3] = output                                            
                                                                                      
     	#Otherwise the percentage is invalid                                             
