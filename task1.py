@@ -103,18 +103,13 @@ def screw_motion():
     
     #According to placment TWEAKKKKKKKKKKK
     arm.upper_arm_bend(3)
+    arm.lift_percentage(70)
+    arm.lower_arm_bend(69)
     arm.set_gripper("close")
-     for num in range(0,13):
+    for num in range(0,13):
     	arm.lift_percentage(71 - (num*2))
     	arm.lower_arm_bend(70 - (num*2))
 	
-    arm.lower_arm_bend(65)
-    arm.lift_percentage(65)
-    arm.lower_arm_bend(60)
-    arm.lift_percentage(60)
-    arm.lower_arm_bend(55)
-    arm.lift_percentage(55)
-    arm.lower_arm_bend(50)
 
 
     #screw motion
