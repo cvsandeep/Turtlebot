@@ -4,7 +4,7 @@ import tb2i as TB
 arm = TB.tb_arm()
 
 def introduction():
-    print "Introduction"
+    print "----------------Introduction----------------"
     arm.intial_pos()
     arm.lift_percentage(75)
     arm.lift_percentage(25)
@@ -16,6 +16,7 @@ def introduction():
     build_robot()
 
 def build_robot():
+    print "----------------build_robot----------------"
     arm.intial_pos()
     arm.upper_arm_bend(0)
     arm.rotation_percentage(40)	
@@ -28,6 +29,7 @@ def build_robot():
     arm.reset_arm()	
 	
 def board_replace():
+    print "----------------board_replace----------------"
     arm.intial_pos()
     #Picking the board 
     arm.lift_percentage(75)
@@ -46,6 +48,7 @@ def board_replace():
     arm.reset_arm()
 
 def build_animals(rotation):
+    print "----------------build_animals----------------"
     arm.intial_pos()
     arm.rotation_percentage(rotation)
     arm.set_gripper("opened")
@@ -62,6 +65,7 @@ def build_animals(rotation):
     arm.reset_arm()
 
 def guide():
+    print "----------------guide----------------"
     arm.intial_pos()
     arm.set_gripper("opened")
     arm.lower_arm_bend(20)
@@ -74,6 +78,7 @@ def guide():
     arm.reset_arm()
 
 def press_enter():
+    print "----------------press_enter----------------"
     arm.intial_pos()
 
     #pick the screw
@@ -91,6 +96,7 @@ def press_enter():
     arm.reset_arm
 
 def screw_motion():
+    print "----------------screw_mootion----------------"
     arm.intial_pos()
     
     #pick the screw
@@ -146,6 +152,7 @@ def screw_motion():
     
     
 def wave():
+    print "----------------wave----------------"
     arm.intial_pos()
     arm.lower_arm_bend(20)
     arm.upper_arm_bend(90)
@@ -155,6 +162,7 @@ def wave():
     arm.reset_arm()  
 
 def bless():
+    print "---------------bless----------------"
     arm.intial_pos()
     for num in range(1,3):
         arm.lower_arm_bend(20)
