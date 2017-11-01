@@ -19,12 +19,20 @@ def build_robot():
     print "----------------build_robot----------------"
     arm.intial_pos()
     arm.upper_arm_bend(0)
+    arm.lift_percentage(35)
+    arm.set_gripper("opened")
+    arm.set_gripper("close")
+    arm.lift_percentage(50)
     arm.rotation_percentage(40)	
+    arm.lift_percentage(35)
     arm.set_gripper("opened")
     arm.set_gripper("close")
+    arm.lift_percentage(50)
     arm.rotation_percentage(5)
+    arm.lift_percentage(35)
     arm.set_gripper("opened")
     arm.set_gripper("close")
+    arm.lift_percentage(50)
     arm.intial_pos()
     arm.reset_arm()	
 	
@@ -37,9 +45,9 @@ def board_replace():
     arm.rotation_percentage(10)
     arm.upper_arm_bend(0)
     arm.lift_percentage(50)
+    arm.lift_percentage(45)
     arm.set_gripper("close")
-    arm.lift_percentage(75)
-
+    arm.lift_percentage(85) 
     #Placing the board
     arm.rotation_percentage(60)
     arm.lift_percentage(50)
@@ -62,7 +70,6 @@ def build_animals(rotation):
     arm.set_gripper("opened")
     arm.set_gripper("close")
     arm.intial_pos()
-    arm.reset_arm()
 
 def guide():
     print "----------------guide----------------"
@@ -91,9 +98,13 @@ def press_enter():
     #According to placment TWEAKKKKKKKKKKK
     arm.lift_percentage(70) 
     arm.lower_arm_bend(70)
-    time.sleep(4)
+    arm.set_gripper("close")
+    time.sleep(2)
+    arm.set_gripper("opened")
+    arm.lower_arm_bend(50)
+    arm.lift_percentage(50)
     arm.intial_pos()
-    arm.reset_arm
+    arm.reset_arm()
 
 def screw_motion():
     print "----------------screw_mootion----------------"
@@ -199,6 +210,7 @@ def Task5():
     print "Task #5: Mobile arm builds animals."
     build_animals(10)
     build_animals(60)
+    arm.reset_arm()
 def Task6():
     print "Task #6: Achievements of god in creation."
     
